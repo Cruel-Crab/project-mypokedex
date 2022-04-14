@@ -8,7 +8,7 @@ import { PokemonsService } from 'src/app/services/pokemons.service';
 })
 export class PokemonListComponent implements OnInit {
   pokemonList: any[] = [];
-  page = 1;
+  page = 0;
   totalPokeCount: number | undefined;
   isFetching: boolean = false;
 
@@ -19,8 +19,12 @@ export class PokemonListComponent implements OnInit {
   }
 
   getPokemons() {
-    this.isFetching = true;
-    this.pokeService.getPokemons(10, this.page + 0)
+    console.log(this.page);
+    if(this.page == 0){
+      this.isFetching = true;
+    }
+    
+    this.pokeService.getPokemons(10, this.page)
       .subscribe((response: any) => {
         this.isFetching = false;
 
@@ -34,6 +38,7 @@ export class PokemonListComponent implements OnInit {
 
               this.pokemonList.push(uniqueResponse);
               console.log(this.pokemonList);
+              this.page++;
 
             }
             )

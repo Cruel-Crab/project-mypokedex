@@ -1,7 +1,8 @@
-<div class="container mt-4">
-    <div class="row" *ngIf="!isFetching">
-        <div class="col-lg-3 col-md-4 col-sm-6 mb-5 d-flex flex-column align-items-center pokeDiv"
-            *ngFor="let poke of pokemonList | paginate : {itemsPerPage: 10, currentPage: page, totalItems: totalPokeCount}">
+<!-- <div class="container mt-4"> -->
+<div class="row" *ngIf="!isFetching">
+    <div class="col-lg-3 col-md-4 col-sm-6 mb-3"
+        *ngFor="let poke of pokemonList | paginate : {itemsPerPage: 10, currentPage: page, totalItems: totalPokeCount}">
+        <div class="card m-1">
             <img [src]="poke.sprites.front_default" [alt]="poke.name">
             <h3 class="text-capitalize">{{ poke.name }} </h3>
             <p>
@@ -21,14 +22,19 @@
                 {{poke.stats[1].base_stat}}
             </p>
         </div>
+
     </div>
-
-    <div class="d-flex justify-content-center align-items-center">
-        <div *ngIf="isFetching" class="spinner-border text-danger" role="status" style="width: 5rem; height: 5rem;">
-            <span class="visually-hidden">Loading...</span>
-        </div>
-    </div>
-
-    <pagination-controls (pageChange)="page = $event; pokemonList = []; getPokemons();"></pagination-controls>
-
 </div>
+
+<div class="d-flex justify-content-center align-items-center">
+    <div *ngIf="isFetching" class="spinner-border text-danger" role="status" style="width: 5rem; height: 5rem;">
+        <span class="visually-hidden">Loading...</span>
+    </div>
+</div>
+
+<div class="d-flex justify-content-center mb-2">
+    <button class="btn btn-danger" (click)="getPokemons();">Load Next</button>
+</div>
+<!-- <pagination-controls (pageChange)="page = $event; pokemonList = []; getPokemons();"></pagination-controls> -->
+
+<!-- </div> -->
